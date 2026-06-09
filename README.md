@@ -263,7 +263,7 @@ git push heroku main
 
 For support and queries:
 - Email: info@sugandhit.com
-- Phone: +91-9999-999-999
+- Phone: +918699141338
 
 ## 📄 License
 
