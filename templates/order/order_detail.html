@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Details</title>
+</head>
+<body>
+    <h1>Order Details</h1>
+
+    <p>Order Number: {{ order.order_number }}</p>
+    <p>Status: {{ order.status }}</p>
+    <p>Total Amount: ₹{{ order.total_amount }}</p>
+
+    {% if tracking %}
+    <h3>Tracking</h3>
+    <p>Location: {{ tracking.current_location }}</p>
+    <p>Status: {{ tracking.status }}</p>
+    {% endif %}
+</body>
+</html>
