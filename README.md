@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sugandhit Space - Gardening & Landscaping App
 
 A full-stack web application for gardening and landscaping services with online plant catalog, expert booking, and real-time order tracking.
@@ -284,3 +285,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ---
 
 **Built with ❤️ for gardening enthusiasts**
+=======
+# Sugandhit-Space
+Flask-based Garden &amp; Nursery Management Website
+>>>>>>> aad87fb7cd1ab435bb133122ced6b6371f85d550
