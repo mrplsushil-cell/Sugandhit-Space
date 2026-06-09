@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Support FAQ - Sugandhit Space{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5">Support FAQ</h2>
+    <div class="accordion">
+        {% for faq in faqs %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button {% if loop.index != 1 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ loop.index }}">
+                    {{ faq.question }}
+                </button>
+            </h2>
+            <div id="faq{{ loop.index }}" class="accordion-collapse collapse {% if loop.index == 1 %}show{% endif %}">
+                <div class="accordion-body">
+                    {{ faq.answer }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Services - Sugandhit Space{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5"><i class="fas fa-star"></i> Our Services</h2>
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ service.name }}</h5>
+                    <p class="text-muted">{{ service.description[:100] }}</p>
+                    <p class="h6 text-success">{{ '%0.2f'|format(service.price)|currency }}</p>
+                    <a href="{{ url_for('booking.book_service', service_id=service.id) }}" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

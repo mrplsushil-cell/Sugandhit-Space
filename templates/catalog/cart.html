@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - Sugandhit Space{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">
+        <i class="fas fa-shopping-cart"></i> Shopping Cart
+    </h2>
+    
+    {% if cart_items %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr data-plant-id="{{ item.plant_id }}">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if item.image %}
+                                            <img src="{{ item.image }}" alt="{{ item.name }}" style="width: 50px; height: 50px; border-radius: 4px; margin-right: 10px; object-fit: cover;">
+                                        {% else %}
+                                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #2ecc71, #27ae60); border-radius: 4px; margin-right: 10px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="fas fa-leaf" style="color: white;"></i>
+                                            </div>
+                                        {% endif %}
+                                        <span>{{ item.name }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ '%0.2f'|format(item.price)|currency }}</td>
+                                <td>
+                                    <input type="number" class="form-control" style="width: 70px;" value="{{ item.quantity }}" min="1" onchange="updateQuantity({{ item.plant_id }}, this.value)">
+                                </td>
+                                <td>{{ '%0.2f'|format(item.total)|currency }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="removeFromCart({{ item.plant_id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Order Summary</h5>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>{{ '%0.2f'|format(total_amount)|currency }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax (5%):</span>
+                        <span>{{ '%0.2f'|format(total_amount * 0.05)|currency }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Delivery Charge:</span>
+                        <span>{% if total_amount < 1000 %}₹50{% else %}Free{% endif %}</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <strong>Total:</strong>
+                        <strong class="h5">{{ '%0.2f'|format(total_amount + (total_amount * 0.05) + (50 if total_amount < 1000 else 0))|currency }}</strong>
+                    </div>
+                    
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('order.checkout') }}" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-credit-card"></i> Proceed to Checkout
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-sign-in-alt"></i> Login to Continue
+                    </a>
+                    {% endif %}
+                    
+                    <a href="{{ url_for('catalog.index') }}" class="btn btn-outline-secondary w-100">
+                        <i class="fas fa-shopping-bag"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> Your cart is empty.
+        <a href="{{ url_for('catalog.index') }}">Continue shopping</a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function updateQuantity(plantId, quantity) {
+    fetch('{{ url_for("catalog.update_cart") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            plant_id: plantId,
+            quantity: parseInt(quantity)
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
+function removeFromCart(plantId) {
+    if (confirm('Remove item from cart?')) {
+        fetch(`{{ url_for("catalog.remove_from_cart", plant_id="XXX") }}`.replace('XXX', plantId), {
+            method: 'POST'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found - Sugandhit Space{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+    <h1 style="font-size: 5rem; color: var(--primary-color);">404</h1>
+    <h2>Page Not Found</h2>
+    <p class="text-muted mb-4">Sorry, the page you're looking for doesn't exist.</p>
+    <a href="{{ url_for('main.home') }}" class="btn btn-primary">Go Back Home</a>
+</div>
+{% endblock %}

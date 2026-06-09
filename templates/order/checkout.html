@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Sugandhit Space{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">
+        <i class="fas fa-credit-card"></i> Checkout
+    </h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Delivery Address</h5>
+                    <form method="POST" action="{{ url_for('order.checkout') }}">
+                        <div class="mb-3">
+                            <label for="delivery_address" class="form-label">Address</label>
+                            <textarea class="form-control" id="delivery_address" name="delivery_address" rows="3" placeholder="Street address" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city" value="{{ current_user.city or '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="pincode" class="form-label">Pincode</label>
+                                <input type="text" class="form-control" id="pincode" name="pincode" value="{{ current_user.pincode or '' }}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ current_user.phone or '' }}" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Continue to Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Order Summary</h5>
+                    
+                    <div class="mb-3" style="max-height: 300px; overflow-y: auto;">
+                        {% for item in cart_items %}
+                        <div class="d-flex justify-content-between mb-2" style="font-size: 0.9rem;">
+                            <span>{{ item.name }} x{{ item.quantity }}</span>
+                            <span>{{ '%0.2f'|format(item.total)|currency }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>{{ '%0.2f'|format(subtotal)|currency }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax (5%):</span>
+                        <span>{{ '%0.2f'|format(tax)|currency }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Delivery:</span>
+                        <span>{{ '%0.2f'|format(delivery_charge)|currency }}</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <strong>Total Amount:</strong>
+                        <strong class="h5">{{ '%0.2f'|format(total)|currency }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

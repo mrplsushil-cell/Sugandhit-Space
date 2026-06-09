@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Contact Us - Sugandhit Space{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5">Contact Us</h2>
+    <div class="row">
+        <div class="col-md-6">
+            {% if not success %}
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> Thank you! We'll get back to you soon.
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div class="mb-4">
+                <h5><i class="fas fa-phone"></i> Phone</h5>
+                <p>+918699141338</p>
+            </div>
+            <div class="mb-4">
+                <h5><i class="fas fa-envelope"></i> Email</h5>
+                <p>info@sugandhit.com</p>
+            </div>
+            <div class="mb-4">
+                <h5><i class="fas fa-map-marker-alt"></i> Address</h5>
+                <p>Ludhiana,Punjab, India</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

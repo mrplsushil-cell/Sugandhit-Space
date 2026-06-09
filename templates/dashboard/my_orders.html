@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}My Orders - Sugandhit Space{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4"><i class="fas fa-shopping-bag"></i> My Orders</h2>
+    
+    {% if orders.items %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders.items %}
+                <tr>
+                    <td><strong>{{ order.order_number }}</strong></td>
+                    <td>{{ order.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ '%0.2f'|format(order.total_amount)|currency }}</td>
+                    <td><span class="badge bg-info">{{ order.status }}</span></td>
+                    <td>
+                        <a href="{{ url_for('order.order_detail', order_id=order.id) }}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> You haven't placed any orders yet.
+        <a href="{{ url_for('catalog.index') }}">Start shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+# Query: info@sugandhit.com
+# ContextLines: 1
+
+8 results - 7 files
+
+sugandhit-app\DEPLOYMENT_GUIDE.md:
+  394  
+  395: For more help, see [README.md](README.md) or contact info@sugandhit.com
+
+sugandhit-app\FILE_INDEX.md:
+  417  ### Getting Help
+  418: - Email: info@sugandhit.com
+  419  - Phone: +918699141338
+
+  487  
+  488: For questions, refer to the documentation or contact: info@sugandhit.com
+  489  
+
+sugandhit-app\PROJECT_SUMMARY.md:
+  467  
+  468: - **Email**: info@sugandhit.com
+  469  - **Phone**: +918699141338
+
+sugandhit-app\QUICK_START.md:
+  190  
+  191: - 📧 Email: info@sugandhit.com
+  192  - 📱 Phone: +918699141338
+
+sugandhit-app\README.md:
+  263  For support and queries:
+  264: - Email: info@sugandhit.com
+  265  - Phone: +918699141338
+
+sugandhit-app\templates\base.html:
+  385                          <i class="fas fa-phone"></i> +918699141338<br>
+  386:                         <i class="fas fa-envelope"></i> info@sugandhit.com<br>
+  387                          <i class="fas fa-map-marker-alt"></i> Ludhiana,Punjab, India
+
+sugandhit-app\templates\contact.html:
+  40                  <h5><i class="fas fa-envelope"></i> Email</h5>
+  41:                 <p>info@sugandhit.com</p>
+  42              </div>
